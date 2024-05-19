@@ -18,5 +18,6 @@ main() async {
       create: (context) => AppProvider(prefs),
       child: const MyApplication(),
     ),
+    
   );
 }

@@ -6,7 +6,7 @@ import '../../core/widgets/custom_text_form_field.dart';
 import '../../layout/home_layout.dart';
 import '../../pages/login_view/login_view_model.dart';
 import '../../pages/register_view/register_view.dart';
-import '../../pages/login_view/reset_password_view.dart';
+
 
 class LoginView extends StatefulWidget {
   static const String routeName = 'login-view';
@@ -62,7 +62,7 @@ class _LoginViewState extends State<LoginView> {
                     child: Form(
                       key: vm.formKey,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                       mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'Welcome Back!',
@@ -120,27 +120,9 @@ class _LoginViewState extends State<LoginView> {
                               return null;
                             },
                           ),
-                          const SizedBox(height: 10),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => ResetPasswordView(vm: vm),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                'Forget password ?',
-                                textAlign: TextAlign.start,
-                                style: theme.textTheme.bodyLarge!.copyWith(
-                                    color: theme.colorScheme.onSecondary),
-                              ),
-                            ),
-                          ),
+                          
                           const SizedBox(
-                            height: 25,
+                            height: 30,
                           ),
                           MaterialButton(
                             onPressed: () async {
@@ -169,11 +151,12 @@ class _LoginViewState extends State<LoginView> {
                               }
                             },
                             height: 50,
+                          
                             color: theme.colorScheme.primary,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
                                   'Login',
@@ -181,26 +164,52 @@ class _LoginViewState extends State<LoginView> {
                                       color: theme.colorScheme.secondary,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                const Icon(Icons.arrow_forward_rounded)
                               ],
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, RegisterView.routeName);
-                              },
-                              child: Text(
-                                'OR Create new account !',
-                                textAlign: TextAlign.start,
-                                style: theme.textTheme.bodyLarge!.copyWith(
-                                    color: theme.colorScheme.onSecondary),
+                          Column(
+                            children: [
+                              const SizedBox(height: 25),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Don't have an account?",
+                                      textAlign: TextAlign.start,
+                                      style:
+                                          theme.textTheme.bodyLarge!.copyWith(
+                                        color: theme.colorScheme.onSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                  
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, RegisterView.routeName);
+                                      },
+                                      child: Text(
+                                        "Sign up",
+                                        textAlign: TextAlign.start,
+                                        style:
+                                            theme.textTheme.bodyLarge!.copyWith(
+                                          color: theme.colorScheme.onSecondary,
+                                          fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
+                              const SizedBox(height: 10),
+                            ],
+                          )
                         ],
                       ),
                     ),

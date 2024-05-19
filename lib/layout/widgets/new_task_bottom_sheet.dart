@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:todo/core/network_layer/firebase_utils.dart';
-import 'package:todo/core/widgets/custom_text_form_field.dart';
-import 'package:todo/model/task_model.dart';
+import 'package:TaskMinder/core/network_layer/firebase_utils.dart';
+import 'package:TaskMinder/core/widgets/custom_text_form_field.dart';
+import 'package:TaskMinder/model/task_model.dart';
 
 class NewTaskBottomSheet extends StatefulWidget {
   const NewTaskBottomSheet({super.key});
@@ -70,8 +70,6 @@ class _NewTaskBottomSheetState extends State<NewTaskBottomSheet> {
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'You must provide task title';
-                      } else if (value.length < 10) {
-                        return 'Task title must be at least 10 characters';
                       } else {
                         return null;
                       }
@@ -81,12 +79,10 @@ class _NewTaskBottomSheetState extends State<NewTaskBottomSheet> {
                   CustomTextFormField(
                     title: 'Enter description',
                     textEditingController: taskDescriptionController,
-                    maxLines: 4,
+                    maxLines: 3,
                     validator: (String? value) {
                       if (taskDescriptionController.text.trim().isEmpty) {
                         return 'You must provide description';
-                      } else if (taskDescriptionController.text.length > 100) {
-                        return 'Description must not be more than 100 characters';
                       } else {
                         return null;
                       }
@@ -100,30 +96,30 @@ class _NewTaskBottomSheetState extends State<NewTaskBottomSheet> {
               'Select Date',
               style: theme.textTheme.bodyLarge,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20, width: 40,),
             GestureDetector(
               onTap: () => pickDate(),
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 110),
-                padding: const EdgeInsets.all(5),
+                margin: const EdgeInsets.symmetric(horizontal: 50),
+                padding: const EdgeInsets.all(10),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: theme.colorScheme.background.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  DateFormat.yMMMd().format(taskSelectedDate),
+                  DateFormat('MMMM d, yyyy').format(taskSelectedDate),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            Text('Select Time', style: theme.textTheme.bodyLarge),
             const SizedBox(height: 10),
+            Text('Select Time', style: theme.textTheme.bodyLarge),
+            const SizedBox(height: 20),
             GestureDetector(
               onTap: () => pickTime(),
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 120),
-                padding: const EdgeInsets.all(5),
+                margin: const EdgeInsets.symmetric(horizontal: 50),
+                padding: const EdgeInsets.all(10),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: theme.colorScheme.background.withOpacity(0.5),
@@ -158,7 +154,7 @@ class _NewTaskBottomSheetState extends State<NewTaskBottomSheet> {
                 },
                 color: theme.primaryColor,
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 75),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 child: Text('Add Task', style: theme.textTheme.bodyLarge),

@@ -2,8 +2,8 @@ class ExtractDate {
 
   static DateTime extractDate(DateTime date) {
     var newDate =  DateTime(
-      date.year,
       date.month,
+      date.year,
       date.day,
     );
     return newDate;

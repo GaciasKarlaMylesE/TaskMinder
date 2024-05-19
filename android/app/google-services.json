@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "473303209845",
-    "project_id": "to-do-f79c8",
-    "storage_bucket": "to-do-f79c8.appspot.com"
+    "project_number": "722793713539",
+    "firebase_url": "https://taskminder-app-default-rtdb.firebaseio.com",
+    "project_id": "taskminder-app",
+    "storage_bucket": "taskminder-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:473303209845:android:ebc71bed814d799e1e653c",
+        "mobilesdk_app_id": "1:722793713539:android:62840035a0725777dfb0b6",
         "android_client_info": {
-          "package_name": "com.example.todo"
+          "package_name": "com.new.TaskMinder"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "722793713539-2ncp3l7mf7ceemcv6o3kjs8d7gur657j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDavnYBSfkhDeET_tC17_vJKt2JpJOJV2w"
+          "current_key": "AIzaSyChi5NXPOA5povAjOYtOr0LHgxcai03ORM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "722793713539-2ncp3l7mf7ceemcv6o3kjs8d7gur657j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "722793713539-le680mqr00pigsdm6u9ltq9o5agf27qb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.todo"
+              }
+            }
+          ]
         }
       }
     }

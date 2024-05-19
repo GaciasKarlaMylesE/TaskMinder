@@ -43,10 +43,10 @@ class _SettingsViewState extends State<SettingsView> {
               children: [
                 Container(
                   width: mediaQuery.width,
-                  height: 200,
+                  height: 150,
                   padding: const EdgeInsets.only(
-                    top: 65,
-                    left: 52,
+                    top: 100,
+                    left: 30,
                   ),
                   color: theme.primaryColor,
                   child: Text(
@@ -54,24 +54,25 @@ class _SettingsViewState extends State<SettingsView> {
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 25, width: 100,),
                 SettingsItem(
                   settingOptionTitle: 'Theme',
                   selectedOption: appProvider.isDarkMode() ? 'Dark' : 'Light',
+                  
                   onClicked: () {
                     vm.showThemeBottomSheet(context);
                   },
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 25),
                 Divider(
                   color: theme.colorScheme.primary,
                   thickness: 2,
                   indent: 100,
-                  endIndent: 75,
+                  endIndent: 100,
                 ),
-                const SizedBox(height: 32),
+                
                 Padding(
-                  padding: const EdgeInsets.only(left: 38.0),
+                  padding: const EdgeInsets.only(left: 40.0),
                   child: Text(
                     "Account settings",
                     style: theme.textTheme.titleMedium,
@@ -79,38 +80,10 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.only(top: 40, left: 56.0, bottom: 17),
+                      const EdgeInsets.only(top: 30, left: 56.0, bottom: 17),
                   child: Column(
                     children: [
-                      CustomELevatedButton(
-                        text: 'Change password',
-                        onTap: () {
-                          showAlertDialog(
-                            context,
-                            'Change password',
-                            'Are you sure you want to change your password?\nYou will be logged out of your account.',
-                            'Change',
-                            () async {
-                              EasyLoading.show();
-                              await vm.changePassword();
-                              EasyLoading.dismiss();
-                              Navigator.of(context).pop();
-                              if (vm.changePasswordStatus == "success") {
-                                SnackBarService.showSuccessMessage(
-                                    'A password reset link has been sent to your email');
-                                Timer(const Duration(seconds: 3), () {
-                                  Navigator.pushNamedAndRemoveUntil(context,
-                                      LoginView.routeName, (route) => false);
-                                });
-                              } else {
-                                SnackBarService.showErrorMessage(
-                                    '${vm.changePasswordStatus}');
-                              }
-                            },
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 30),
+              
                       CustomELevatedButton(
                         text: 'Delete account',
                         textStyle: theme.textTheme.bodyLarge!.copyWith(
@@ -133,7 +106,7 @@ class _SettingsViewState extends State<SettingsView> {
                               if (vm.deleteAccountStatus == "success") {
                                 SnackBarService.showSuccessMessage(
                                     'Your account has been deleted');
-                                Timer(const Duration(seconds: 3), () {
+                                Timer(const Duration(seconds: 5), () {
                                   Navigator.pushNamedAndRemoveUntil(context,
                                       LoginView.routeName, (route) => false);
                                 });
@@ -146,6 +119,18 @@ class _SettingsViewState extends State<SettingsView> {
                         },
                       ),
                     ],
+                  ),
+                ),
+                SizedBox(height: 25, width: 100,),
+                // Logout Button
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      appProvider.logOut();
+                      Navigator.pushReplacementNamed(
+                          context, LoginView.routeName);
+                    },
+                    child: Text('Logout'),
                   ),
                 ),
               ],

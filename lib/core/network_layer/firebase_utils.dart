@@ -5,24 +5,34 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../core/provider/app_provider.dart';
 import '../../core/utils/extract_date.dart';
 import '../../model/task_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class FirebaseUtils {
   static Future<Either<String?, UserCredential>> register(
-    String email,
-    String password,
-  ) async {
-    late UserCredential user;
-    try {
-      user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      await verifyEmail();
-    } on FirebaseAuthException catch (e) {
-      return left(e.code);
-    }
-    return Right(user);
+  String email,
+  String password,
+  String userName, // Add userName parameter
+  
+) async {
+  late UserCredential user;
+  try {
+    user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    await verifyEmail();
+    
+    // Set userName directly without relying on context
+    
+  } on FirebaseAuthException catch (e) {
+    return left(e.code);
   }
+  return Right(user);
+}
+
+
+
 
   static Future<Either<String, UserCredential>> logIn(
     String email,
@@ -57,14 +67,6 @@ class FirebaseUtils {
     }
   }
 
-  static Future<String> resetPassword(String email) async {
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (e) {
-      return e.code;
-    }
-    return "success";
-  }
 
   static Future<String> deleteAccount() async {
     try {
@@ -124,6 +126,18 @@ class FirebaseUtils {
     var snapshots = await collectionRef.get();
     for (var doc in snapshots.docs) {
       await doc.reference.delete();
+    }
+  }
+
+  static Future<void> updateTaskCompletionStatus(String taskId, bool isDone) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(AppProvider.userID)
+          .doc(taskId)
+          .update({'isDone': isDone});
+    } catch (e) {
+      print('Error updating task status: $e');
+      throw e;
     }
   }
 }

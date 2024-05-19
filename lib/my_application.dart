@@ -19,7 +19,7 @@ class MyApplication extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "To Do",
+      title: "TaskMinder",
       themeMode: AppProvider.currentTheme,
       theme: ApplicationTheme.lightTheme,
       darkTheme: ApplicationTheme.darkTheme,

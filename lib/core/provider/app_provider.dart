@@ -9,11 +9,13 @@ class AppProvider extends ChangeNotifier {
   SharedPreferences prefs;
   static ThemeMode? currentTheme;
   static String userID = "";
+  String userName = ""; // Add this line
 
   AppProvider(this.prefs) {
     userID = prefs.getString("UID") ?? "";
     bool isDark = prefs.getBool("isDark") ?? false;
     currentTheme = isDark ? ThemeMode.dark : ThemeMode.light;
+    userName = prefs.getString("userName") ?? ""; // Add this line
   }
 
   logging() {
@@ -25,7 +27,9 @@ class AppProvider extends ChangeNotifier {
 
   logOut() async {
     userID = "";
+    userName = ""; // Add this line
     prefs.setString("UID", "");
+    prefs.setString("userName", ""); // Add this line
     await FirebaseUtils.logOut();
   }
 
@@ -41,4 +45,11 @@ class AppProvider extends ChangeNotifier {
   }
 
   isDarkMode() => currentTheme == ThemeMode.dark;
+
+  setUserName(String name) {
+  userName = name;
+  prefs.setString("userName", name);
+  notifyListeners(); // Notify listeners after updating userName
+}
+
 }

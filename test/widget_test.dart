@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:todo/my_application.dart';
+import 'package:TaskMinder/my_application.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

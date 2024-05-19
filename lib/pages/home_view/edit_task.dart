@@ -28,9 +28,9 @@ class _EditTaskState extends State<EditTask> {
     taskDescriptionController = TextEditingController();
     taskDescriptionController.text = 'init';
     taskSelectedTime = DateTime(
-      taskSelectedDate.year,
       taskSelectedDate.month,
       taskSelectedDate.day,
+      taskSelectedDate.year,
       TimeOfDay.now().hour,
       TimeOfDay.now().minute,
     );
@@ -122,8 +122,6 @@ class _EditTaskState extends State<EditTask> {
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return 'You must provide task title';
-                          } else if (value.length < 10) {
-                            return 'Task title must be at least 10 characters';
                           } else {
                             return null;
                           }
@@ -137,17 +135,17 @@ class _EditTaskState extends State<EditTask> {
                         validator: (String? value) {
                           if (taskDescriptionController.text.trim().isEmpty) {
                             return 'You must provide description';
-                          } else if (taskDescriptionController.text.length >
-                              100) {
-                            return 'Description must not be more than 100 characters';
                           } else {
                             return null;
                           }
                         },
                       ),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 30),
                       Text('Date', style: theme.textTheme.bodyLarge),
-                      const SizedBox(height: 10),
+                      const SizedBox(
+                        height: 20,
+                        width: 40,
+                      ),
                       GestureDetector(
                         onTap: () => pickDate(),
                         child: Container(
@@ -247,9 +245,9 @@ class _EditTaskState extends State<EditTask> {
     );
     if (selectedTime != null) {
       taskSelectedTime = DateTime(
-        taskSelectedDate.year,
-        taskSelectedDate.month,
-        taskSelectedDate.day,
+         taskSelectedDate.year,
+         taskSelectedDate.month,
+         taskSelectedDate.day, 
         selectedTime.hour,
         selectedTime.minute,
       );

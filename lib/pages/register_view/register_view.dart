@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:TaskMinder/pages/login_view/login_view.dart';
 
 import '../../core/services/snackbar_service.dart';
 import '../../core/widgets/custom_text_form_field.dart';
@@ -47,9 +48,10 @@ class _RegisterViewState extends State<RegisterView> {
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 title:
-                    Text('Create Account', style: theme.textTheme.titleLarge),
+                    Text('Create Account', style: theme.textTheme.titleLarge,),
+                    
                 centerTitle: true,
-                toolbarHeight: 120,
+                toolbarHeight: 70,
                 iconTheme: IconThemeData(color: theme.colorScheme.secondary),
               ),
               body: Padding(
@@ -75,7 +77,19 @@ class _RegisterViewState extends State<RegisterView> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 20),
+                         const SizedBox(height: 15),
+                         CustomTextFormField(
+                          title: 'Enter your username',
+                          textEditingController: vm.userName,
+                          labelText: 'User Name',
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'You must enter your user name';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 15),
                         CustomTextFormField(
                           title: 'Enter your email',
                           textEditingController: vm.email,
@@ -95,7 +109,7 @@ class _RegisterViewState extends State<RegisterView> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 15),
                         CustomTextFormField(
                           title: 'Must contains A-Z, a-z, @-#-&.. , 1-9',
                           textEditingController: vm.password,
@@ -190,7 +204,7 @@ class _RegisterViewState extends State<RegisterView> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8)),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
                                 'Sign Up',
@@ -198,25 +212,53 @@ class _RegisterViewState extends State<RegisterView> {
                                     color: theme.colorScheme.secondary,
                                     fontWeight: FontWeight.bold),
                               ),
-                              const Icon(Icons.arrow_forward_rounded)
+                              
                             ],
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text(
-                              'OR Log in !',
-                              textAlign: TextAlign.start,
-                              style: theme.textTheme.bodyLarge!.copyWith(
-                                  color: theme.colorScheme.onSecondary),
-                            ),
-                          ),
-                        ),
+                        Column(
+                            children: [
+                              const SizedBox(height: 25),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Already have an account?",
+                                      textAlign: TextAlign.start,
+                                      style:
+                                          theme.textTheme.bodyLarge!.copyWith(
+                                        color: theme.colorScheme.onSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                  
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, LoginView.routeName);
+                                      },
+                                      child: Text(
+                                        "Log in",
+                                        textAlign: TextAlign.start,
+                                        style:
+                                            theme.textTheme.bodyLarge!.copyWith(
+                                          color: theme.colorScheme.onSecondary,
+                                          fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                            ],
+                          )
                       ],
                     ),
                   ),

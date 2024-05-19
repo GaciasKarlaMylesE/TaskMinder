@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,38 +41,56 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCGD7Mfu_soSAierklU97HDz00CL1nCvig',
-    appId: '1:473303209845:web:eebab6633986cbd11e653c',
-    messagingSenderId: '473303209845',
-    projectId: 'to-do-f79c8',
-    authDomain: 'to-do-f79c8.firebaseapp.com',
-    storageBucket: 'to-do-f79c8.appspot.com',
-    measurementId: 'G-4VVMVMRJM0',
+    apiKey: 'AIzaSyB4hSunmogNRsFGWI0xM6cP3HBeNA6wTQs',
+    appId: '1:722793713539:web:3b72b0d19326345ddfb0b6',
+    messagingSenderId: '722793713539',
+    projectId: 'taskminder-app',
+    authDomain: 'taskminder-app.firebaseapp.com',
+    databaseURL: 'https://taskminder-app-default-rtdb.firebaseio.com',
+    storageBucket: 'taskminder-app.appspot.com',
+    measurementId: 'G-BRQJ9610QG',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDavnYBSfkhDeET_tC17_vJKt2JpJOJV2w',
-    appId: '1:473303209845:android:ebc71bed814d799e1e653c',
-    messagingSenderId: '473303209845',
-    projectId: 'to-do-f79c8',
-    storageBucket: 'to-do-f79c8.appspot.com',
+    apiKey: 'AIzaSyChi5NXPOA5povAjOYtOr0LHgxcai03ORM',
+    appId: '1:722793713539:android:62840035a0725777dfb0b6',
+    messagingSenderId: '722793713539',
+    projectId: 'taskminder-app',
+    databaseURL: 'https://taskminder-app-default-rtdb.firebaseio.com',
+    storageBucket: 'taskminder-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBVDhXis2DF-Qipt3C2trCIxq6_COca7pg',
-    appId: '1:473303209845:ios:32f30e5f1faeff1f1e653c',
-    messagingSenderId: '473303209845',
-    projectId: 'to-do-f79c8',
-    storageBucket: 'to-do-f79c8.appspot.com',
+    apiKey: 'AIzaSyAU5d74XA4V8jLfaYwiZCq8qCCdi_TVgl8',
+    appId: '1:722793713539:ios:5cb39f026e9b5740dfb0b6',
+    messagingSenderId: '722793713539',
+    projectId: 'taskminder-app',
+    databaseURL: 'https://taskminder-app-default-rtdb.firebaseio.com',
+    storageBucket: 'taskminder-app.appspot.com',
+    iosClientId: '722793713539-le680mqr00pigsdm6u9ltq9o5agf27qb.apps.googleusercontent.com',
     iosBundleId: 'com.example.todo',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBVDhXis2DF-Qipt3C2trCIxq6_COca7pg',
-    appId: '1:473303209845:ios:147b55f2618332de1e653c',
-    messagingSenderId: '473303209845',
-    projectId: 'to-do-f79c8',
-    storageBucket: 'to-do-f79c8.appspot.com',
-    iosBundleId: 'com.example.todo.RunnerTests',
+    apiKey: 'AIzaSyAU5d74XA4V8jLfaYwiZCq8qCCdi_TVgl8',
+    appId: '1:722793713539:ios:5cb39f026e9b5740dfb0b6',
+    messagingSenderId: '722793713539',
+    projectId: 'taskminder-app',
+    databaseURL: 'https://taskminder-app-default-rtdb.firebaseio.com',
+    storageBucket: 'taskminder-app.appspot.com',
+    iosClientId: '722793713539-le680mqr00pigsdm6u9ltq9o5agf27qb.apps.googleusercontent.com',
+    iosBundleId: 'com.example.todo',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyB4hSunmogNRsFGWI0xM6cP3HBeNA6wTQs',
+    appId: '1:722793713539:web:12d86c20a6ffd660dfb0b6',
+    messagingSenderId: '722793713539',
+    projectId: 'taskminder-app',
+    authDomain: 'taskminder-app.firebaseapp.com',
+    databaseURL: 'https://taskminder-app-default-rtdb.firebaseio.com',
+    storageBucket: 'taskminder-app.appspot.com',
+    measurementId: 'G-X5WGVYGGC4',
+  );
+
 }
