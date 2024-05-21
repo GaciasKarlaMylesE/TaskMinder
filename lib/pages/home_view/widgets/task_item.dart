@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
 import '../../../core/network_layer/firebase_utils.dart';
 import '../../../model/task_model.dart';
 import '../../../pages/home_view/edit_task.dart';

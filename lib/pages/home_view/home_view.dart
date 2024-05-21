@@ -9,8 +9,6 @@ import '../../pages/home_view/widgets/task_item.dart';
 import '../../model/task_model.dart';
 
 class HomeView extends StatefulWidget {
-  static const String routeName = 'home-view';
-
   const HomeView({Key? key});
 
   @override
@@ -135,36 +133,29 @@ class _HomeViewState extends State<HomeView> {
             Container(
               width: mediaQuery.width,
               height: 225,
-              padding: const EdgeInsets.only(
-                left: 25,
-              ),
+              padding: const EdgeInsets.only(left: 25),
               color: theme.primaryColor,
               child: Row(
                 children: [
-                   // Added SizedBox for spacing
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [SizedBox(height: 50),
+                    children: [
+                      const SizedBox(height: 50),
                       Text(
                         'Hello, ',
                         style: theme.textTheme.titleLarge,
                       ),
-                      
                       Text(
                         '${appProvider.userName}',
                         style: TextStyle(
                           fontSize: theme.textTheme.titleLarge!.fontSize,
-                          
                         ),
                       ),
                     ],
                   ),
-                  Spacer(), // Added Spacer widget for flexible spacing
-                  
+                  const Spacer(),
                   IconButton(
-                    onPressed: () {
-                      
-                    },
+                    onPressed: () {},
                     icon: const Icon(Icons.restart_alt_rounded),
                     color: theme.colorScheme.secondary,
                   ),
@@ -213,9 +204,14 @@ class _HomeViewState extends State<HomeView> {
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 // Error handling code...
+                return Center(
+                  child: Text(
+                    'Something went wrong!',
+                    style: theme.textTheme.titleLarge,
+                  ),
+                );
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                // Return shimmer loading widget...
                 return _buildShimmerLoadingWidget();
               }
 
@@ -223,6 +219,9 @@ class _HomeViewState extends State<HomeView> {
                       .map((element) => element.data())
                       .toList() ??
                   [];
+
+              // Sort the tasks by due time
+              tasksList.sort((a, b) => a.time.compareTo(b.time));
 
               return ListView.builder(
                 itemBuilder: (context, index) =>

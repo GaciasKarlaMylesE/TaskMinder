@@ -61,14 +61,17 @@ class _HomeLayoutState extends State<HomeLayout> {
             BottomNavigationBarItem(
               icon: ImageIcon(
                 AssetImage('assets/images/list_icon.png'),
+                size: 22,
               ),
               label: 'Tasks',
             ),
             BottomNavigationBarItem(
               icon: ImageIcon(
                 AssetImage('assets/images/settings_icon.png'),
+                size: 22,
               ),
               label: 'Tasks',
+              
             ),
           ],
         ),

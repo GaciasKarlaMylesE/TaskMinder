@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../core/network_layer/firebase_utils.dart';
 import '../../core/widgets/custom_text_form_field.dart';
 import '../../model/task_model.dart';
+import 'package:intl/intl.dart';
 
 class EditTask extends StatefulWidget {
   static const String routeName = 'edit-task';
@@ -21,23 +21,25 @@ class _EditTaskState extends State<EditTask> {
   DateTime initDate = DateTime.now();
   DateTime initTime = DateTime.now();
 
-  @override
-  void initState() {
-    taskTitleController = TextEditingController();
-    taskTitleController.text = 'init';
-    taskDescriptionController = TextEditingController();
-    taskDescriptionController.text = 'init';
-    taskSelectedTime = DateTime(
-      taskSelectedDate.month,
-      taskSelectedDate.day,
-      taskSelectedDate.year,
-      TimeOfDay.now().hour,
-      TimeOfDay.now().minute,
-    );
-    initDate = taskSelectedDate;
-    initTime = taskSelectedTime;
-    super.initState();
-  }
+ @override
+void initState() {
+  taskTitleController = TextEditingController();
+  taskTitleController.text = 'init';
+  taskDescriptionController = TextEditingController();
+  taskDescriptionController.text = 'init';
+  taskSelectedDate = DateTime.now(); // Initialize taskSelectedDate to current date
+  taskSelectedTime = DateTime(
+    taskSelectedDate.year,
+    taskSelectedDate.month,
+    taskSelectedDate.day,
+    TimeOfDay.now().hour,
+    TimeOfDay.now().minute,
+  );
+  initDate = taskSelectedDate;
+  initTime = taskSelectedTime;
+  super.initState();
+}
+
 
   @override
   void dispose() {
@@ -133,11 +135,8 @@ class _EditTaskState extends State<EditTask> {
                         textEditingController: taskDescriptionController,
                         maxLines: 4,
                         validator: (String? value) {
-                          if (taskDescriptionController.text.trim().isEmpty) {
-                            return 'You must provide description';
-                          } else {
-                            return null;
-                          }
+                          // Allow an empty description
+                          return null;
                         },
                       ),
                       const SizedBox(height: 30),
@@ -157,8 +156,7 @@ class _EditTaskState extends State<EditTask> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
-                            taskSelectedDate.toString().substring(
-                                0, taskSelectedDate.toString().indexOf(' ')),
+                            DateFormat('yyyy-MM-dd').format(taskSelectedDate),
                             style:
                                 TextStyle(color: theme.colorScheme.onSecondary),
                           ),
@@ -245,9 +243,9 @@ class _EditTaskState extends State<EditTask> {
     );
     if (selectedTime != null) {
       taskSelectedTime = DateTime(
-         taskSelectedDate.year,
-         taskSelectedDate.month,
-         taskSelectedDate.day, 
+        taskSelectedDate.year,
+        taskSelectedDate.month,
+        taskSelectedDate.day,
         selectedTime.hour,
         selectedTime.minute,
       );
