@@ -9,6 +9,8 @@ import '../../pages/home_view/widgets/task_item.dart';
 import '../../model/task_model.dart';
 
 class HomeView extends StatefulWidget {
+  static const String routeName = 'home-view';
+
   const HomeView({Key? key});
 
   @override

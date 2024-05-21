@@ -5,8 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../core/provider/app_provider.dart';
 import '../../core/utils/extract_date.dart';
 import '../../model/task_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 
 class FirebaseUtils {
   static Future<Either<String?, UserCredential>> register(

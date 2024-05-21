@@ -216,9 +216,10 @@ class _RegisterViewState extends State<RegisterView> {
                             ],
                           ),
                         ),
+                        
                         Column(
                             children: [
-                              const SizedBox(height: 25),
+                              const SizedBox(height: 10),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

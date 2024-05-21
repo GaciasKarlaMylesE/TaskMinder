@@ -1,9 +1,4 @@
-# To Do
-*"To Do" is a versatile mobile application designed to help users organize their daily schedules and tasks for an entire year. With an intuitive and user-friendly interface, this app allows you to seamlessly plan your day, add multiple tasks.*
 
-*Furthermore, "To Do" offers a Dark mode option for a comfortable user experience.*
-
-*This app was developed using the Flutter Framework and employs the "Provider" package for effective management of the application's state.*
 
 &nbsp;
 

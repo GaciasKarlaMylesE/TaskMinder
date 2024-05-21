@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../core/network_layer/firebase_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class RegisterViewModel extends ChangeNotifier {

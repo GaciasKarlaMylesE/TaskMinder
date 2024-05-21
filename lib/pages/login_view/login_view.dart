@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import '../../core/services/auth_service.dart';
 import '../../core/services/snackbar_service.dart';
 import '../../core/widgets/custom_text_form_field.dart';
 import '../../layout/home_layout.dart';
 import '../../pages/login_view/login_view_model.dart';
 import '../../pages/register_view/register_view.dart';
-
+import '../../components/square_tile.dart';
 
 class LoginView extends StatefulWidget {
   static const String routeName = 'login-view';
 
-  const LoginView({super.key});
+  const LoginView({Key? key}) : super(key: key);
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -25,6 +28,18 @@ class _LoginViewState extends State<LoginView> {
   void initState() {
     super.initState();
     loginViewModel = LoginViewModel();
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      final authService = Provider.of<AuthService>(context, listen: false);
+      await authService.signInWithGoogle();
+      if (FirebaseAuth.instance.currentUser != null) {
+        Navigator.pushReplacementNamed(context, HomeLayout.routeName);
+      }
+    } catch (error) {
+      SnackBarService.showErrorMessage('Error signing in with Google: $error');
+    }
   }
 
   @override
@@ -62,12 +77,13 @@ class _LoginViewState extends State<LoginView> {
                     child: Form(
                       key: vm.formKey,
                       child: Column(
-                       mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'Welcome Back!',
-                            style: theme.textTheme.titleLarge!
-                                .copyWith(color: theme.colorScheme.onSecondary),
+                            style: theme.textTheme.titleLarge!.copyWith(
+                              color: theme.colorScheme.onSecondary,
+                            ),
                           ),
                           const SizedBox(height: 40),
                           CustomTextFormField(
@@ -78,14 +94,11 @@ class _LoginViewState extends State<LoginView> {
                               if (value == null || value.trim().isEmpty) {
                                 return 'You must enter your e-mail address';
                               }
-
                               var regex = RegExp(
                                   r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
                               if (!regex.hasMatch(value)) {
-                                return 'invalid e-mail address';
+                                return 'Invalid e-mail address';
                               }
-
                               return null;
                             },
                           ),
@@ -97,10 +110,11 @@ class _LoginViewState extends State<LoginView> {
                             obscureText: !isVisible,
                             suffixIcon: GestureDetector(
                               onTap: () {
-                                isVisible = !isVisible;
-                                setState(() {});
+                                setState(() {
+                                  isVisible = !isVisible;
+                                });
                               },
-                              child: isVisible == true
+                              child: isVisible
                                   ? const Icon(Icons.visibility_off)
                                   : const Icon(Icons.visibility),
                             ),
@@ -108,108 +122,96 @@ class _LoginViewState extends State<LoginView> {
                               if (value == null || value.trim().isEmpty) {
                                 return 'You must enter your password';
                               }
-
                               var regex = RegExp(
                                 r"(?=^.{8,}$)(?=.*[!@#$%^&*]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
                               );
-
                               if (!regex.hasMatch(value)) {
-                                return 'invalid password';
+                                return 'Invalid password';
                               }
-
                               return null;
                             },
                           ),
-                          
-                          const SizedBox(
-                            height: 30,
-                          ),
+                          const SizedBox(height: 30),
                           MaterialButton(
                             onPressed: () async {
                               EasyLoading.show();
                               await loginViewModel.login();
                               EasyLoading.dismiss();
-
                               if (vm.loginStatus == "success") {
-                                SnackBarService.showSuccessMessage(
-                                    'You logged in successfully');
+                                SnackBarService.showSuccessMessage('You logged in successfully');
                                 if (mounted) {
-                                  Navigator.pushReplacementNamed(
-                                      context, HomeLayout.routeName);
+                                  Navigator.pushReplacementNamed(context, HomeLayout.routeName);
                                 }
-                              } else if (vm.loginStatus ==
-                                  "invalid-credential") {
-                                SnackBarService.showErrorMessage(
-                                    'Invalid login credentials');
-                              } else if (vm.loginStatus ==
-                                  "email-not-verified") {
-                                SnackBarService.showErrorMessage(
-                                    'Email is not verified, please verify your email');
+                              } else if (vm.loginStatus == "invalid-credential") {
+                                SnackBarService.showErrorMessage('Invalid login credentials');
+                              } else if (vm.loginStatus == "email-not-verified") {
+                                SnackBarService.showErrorMessage('Email is not verified, please verify your email');
                               } else {
-                                SnackBarService.showErrorMessage(
-                                    'Something went wrong');
+                                SnackBarService.showErrorMessage('Something went wrong');
                               }
                             },
                             height: 50,
-                          
                             color: theme.colorScheme.primary,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
                                   'Login',
                                   style: theme.textTheme.bodyLarge!.copyWith(
-                                      color: theme.colorScheme.secondary,
-                                      fontWeight: FontWeight.bold),
+                                    color: theme.colorScheme.secondary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
+                          const SizedBox(height: 25),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SquareTile(
+                                onTap: _signInWithGoogle,
+                                imagePath: 'assets/images/google.png',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
                           Column(
                             children: [
                               const SizedBox(height: 25),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       "Don't have an account?",
                                       textAlign: TextAlign.start,
-                                      style:
-                                          theme.textTheme.bodyLarge!.copyWith(
+                                      style: theme.textTheme.bodyLarge!.copyWith(
                                         color: theme.colorScheme.onSecondary,
                                       ),
                                     ),
                                   ),
-                                  
                                   Align(
                                     alignment: Alignment.centerLeft,
-                                    
                                     child: TextButton(
                                       onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, RegisterView.routeName);
+                                        Navigator.pushNamed(context, RegisterView.routeName);
                                       },
                                       child: Text(
                                         "Sign up",
                                         textAlign: TextAlign.start,
-                                        style:
-                                            theme.textTheme.bodyLarge!.copyWith(
-                                          color: theme.colorScheme.onSecondary,
-                                          fontWeight: FontWeight.bold
+                                        style: theme.textTheme.bodyLarge!.copyWith(
+                                          color: theme.colorScheme.primary,
                                         ),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
